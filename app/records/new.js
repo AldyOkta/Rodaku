@@ -136,7 +136,8 @@ export default function NewRecordModal() {
     <SafeAreaView style={styles.safeArea}>
       <KeyboardAvoidingView
         style={styles.keyboardView}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
       >
         {/* Header Modal */}
         <View style={styles.header}>
@@ -154,7 +155,12 @@ export default function NewRecordModal() {
           <View style={{ width: 36 }} />
         </View>
 
-        <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={styles.scrollContent}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
           {/* Quick Selection Grid for Service Type */}
           <Text style={styles.sectionLabel}>PILIH JENIS CATATAN</Text>
           <View style={styles.typeGrid}>
@@ -333,7 +339,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: SPACING.lg,
-    paddingBottom: 40,
+    paddingBottom: 140,
     gap: SPACING.lg,
   },
   sectionLabel: {

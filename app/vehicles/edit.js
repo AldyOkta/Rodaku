@@ -166,7 +166,8 @@ export default function EditVehicleModal() {
     <SafeAreaView style={styles.safeArea}>
       <KeyboardAvoidingView
         style={styles.keyboardView}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
       >
         {/* Header Modal */}
         <View style={styles.header}>
@@ -190,7 +191,12 @@ export default function EditVehicleModal() {
           </TouchableOpacity>
         </View>
 
-        <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={styles.scrollContent}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
           {/* Vehicle Type Selection */}
           <Text style={styles.sectionLabel}>TIPE KENDARAAN</Text>
           <View style={styles.typeSelectorRow}>
@@ -403,7 +409,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: SPACING.lg,
-    paddingBottom: 40,
+    paddingBottom: 140,
     gap: SPACING.lg,
   },
   sectionLabel: {

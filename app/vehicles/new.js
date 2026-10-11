@@ -90,7 +90,8 @@ export default function NewVehicleModal() {
     <SafeAreaView style={styles.safeArea}>
       <KeyboardAvoidingView
         style={styles.keyboardView}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
       >
         <View style={styles.header}>
           <TouchableOpacity
@@ -104,7 +105,12 @@ export default function NewVehicleModal() {
           <View style={{ width: 36 }} />
         </View>
 
-        <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={styles.scrollContent}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
           {/* Type Selector */}
           <Text style={styles.sectionLabel}>JENIS KENDARAAN</Text>
           <View style={styles.typeRow}>
@@ -276,7 +282,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: SPACING.lg,
-    paddingBottom: 40,
+    paddingBottom: 140,
     gap: SPACING.lg,
   },
   sectionLabel: {
