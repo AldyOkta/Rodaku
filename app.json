@@ -58,6 +58,12 @@
         }
       ]
     ],
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/82758821-0835-464f-8edd-e6cc1177cb83"
+    },
     "extra": {
       "router": {},
       "eas": {

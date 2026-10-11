@@ -9,6 +9,8 @@ import { COLORS } from '../src/constants/theme';
 import { getDatabase } from '../src/db/database';
 import ExplodedWheelSplash from '../src/components/ExplodedWheelSplash';
 
+import * as Updates from 'expo-updates';
+
 export default function RootLayout() {
   const [splashFinished, setSplashFinished] = useState(false);
   const [fontsLoaded] = useFonts({
@@ -27,6 +29,24 @@ export default function RootLayout() {
     } catch (e) {
       console.error('Failed to initialize database:', e);
     }
+
+    // Check for OTA Updates in standalone/production build
+    async function checkForOtaUpdates() {
+      if (__DEV__) return;
+      try {
+        const update = await Updates.checkForUpdateAsync();
+        if (update.isAvailable) {
+          await Updates.fetchUpdateAsync();
+          // Reload silently on next launch or immediately
+          await Updates.reloadAsync();
+        }
+      } catch (err) {
+        // Silently ignore if offline
+        console.log('OTA update check skipped/failed (offline):', err.message);
+      }
+    }
+
+    checkForOtaUpdates();
   }, []);
 
   return (
