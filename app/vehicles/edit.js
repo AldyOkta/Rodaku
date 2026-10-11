@@ -158,7 +158,7 @@ export default function EditVehicleModal() {
               <MaterialIcons
                 name="two-wheeler"
                 size={32}
-                color={type === 'motor' ? COLORS.primary : COLORS.textMuted}
+                color={type === 'motor' ? COLORS.secondary : COLORS.textMuted}
               />
               <Text
                 style={[
@@ -181,7 +181,7 @@ export default function EditVehicleModal() {
               <MaterialIcons
                 name="directions-car"
                 size={32}
-                color={type === 'mobil' ? COLORS.primary : COLORS.textMuted}
+                color={type === 'mobil' ? COLORS.secondary : COLORS.textMuted}
               />
               <Text
                 style={[
@@ -381,8 +381,8 @@ const styles = StyleSheet.create({
     borderColor: COLORS.border,
   },
   typeOptionCardActive: {
-    borderColor: COLORS.primary,
-    backgroundColor: COLORS.primaryContainer,
+    borderColor: COLORS.secondary,
+    backgroundColor: COLORS.secondaryContainer,
   },
   typeOptionLabel: {
     fontSize: 13,
@@ -390,7 +390,7 @@ const styles = StyleSheet.create({
     color: COLORS.textMuted,
   },
   typeOptionLabelActive: {
-    color: COLORS.primary,
+    color: COLORS.secondary,
     fontFamily: FONTS.headingSemiBold,
   },
   formSection: {
@@ -436,15 +436,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.secondary,
     borderRadius: RADIUS.md,
     paddingVertical: 14,
     marginTop: SPACING.sm,
-    shadowColor: COLORS.primary,
+    shadowColor: COLORS.secondary,
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.35,
     shadowRadius: 8,
-    elevation: 3,
+    elevation: 4,
   },
   saveBtnText: {
     fontSize: 15,

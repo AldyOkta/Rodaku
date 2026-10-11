@@ -219,7 +219,7 @@ export default function RemindersScreen() {
                   <View style={[styles.remainingBadge, { backgroundColor: badgeBg, borderColor: badgeBorder }]}>
                     <Text style={[styles.remainingText, { color: badgeColor }]}>{labelText}</Text>
                   </View>
-                  <MaterialIcons name="tune" size={16} color={COLORS.primary} />
+                  <MaterialIcons name="tune" size={16} color={COLORS.secondary} />
                 </View>
               </View>
 
@@ -635,13 +635,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.secondary,
     borderRadius: RADIUS.md,
     paddingVertical: 12,
-    shadowColor: COLORS.primary,
-    shadowOpacity: 0.3,
+    shadowColor: COLORS.secondary,
+    shadowOpacity: 0.35,
     shadowRadius: 6,
-    elevation: 2,
+    elevation: 3,
   },
   modalSaveText: {
     fontSize: 14,

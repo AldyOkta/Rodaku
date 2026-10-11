@@ -152,10 +152,10 @@ export default function HeaderBar({ vehicle, onVehicleChanged, onSwitchVehicle }
                         style={{ padding: 4 }}
                         accessibilityLabel={`Kelola ${v.name}`}
                       >
-                        <MaterialIcons name="tune" size={18} color={COLORS.textMuted} />
+                        <MaterialIcons name="tune" size={18} color={COLORS.secondary} />
                       </TouchableOpacity>
                       {isSelected ? (
-                        <MaterialIcons name="check-circle" size={22} color={COLORS.primary} />
+                        <MaterialIcons name="check-circle" size={22} color={COLORS.secondary} />
                       ) : (
                         <MaterialIcons name="radio-button-unchecked" size={22} color={COLORS.textSubtle} />
                       )}

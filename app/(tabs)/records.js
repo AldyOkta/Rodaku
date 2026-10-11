@@ -127,7 +127,7 @@ export default function RecordsScreen() {
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
                   <Text style={styles.costText}>{formatRupiah(item.cost)}</Text>
-                  <MaterialIcons name="edit" size={16} color={COLORS.primary} />
+                  <MaterialIcons name="edit" size={16} color={COLORS.secondary} />
                 </View>
               </View>
 

@@ -114,7 +114,7 @@ export default function GarasiScreen() {
                 onPress={() => router.push({ pathname: '/vehicles/edit', params: { id: vehicle.id } })}
                 activeOpacity={0.7}
               >
-                <MaterialIcons name="tune" size={16} color={COLORS.primary} />
+                <MaterialIcons name="tune" size={16} color={COLORS.secondary} />
                 <Text style={styles.editBtnText}>Kelola</Text>
               </TouchableOpacity>
             </View>
@@ -351,7 +351,7 @@ const styles = StyleSheet.create({
   editBtnText: {
     fontSize: 11,
     fontFamily: FONTS.headingSemiBold,
-    color: COLORS.primary,
+    color: COLORS.secondary,
   },
   odoWrapper: {
     marginTop: 2,
