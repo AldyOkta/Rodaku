@@ -23,11 +23,6 @@
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundColor": "#12355B"
       },
-      "navigationBar": {
-        "visible": "sticky-immersive",
-        "backgroundColor": "#07090E",
-        "barStyle": "light-content"
-      },
       "permissions": [
         "RECEIVE_BOOT_COMPLETED",
         "VIBRATE",
@@ -38,11 +33,6 @@
       "barStyle": "light-content",
       "backgroundColor": "#07090E",
       "translucent": true
-    },
-    "androidNavigationBar": {
-      "visible": "sticky-immersive",
-      "barStyle": "light-content",
-      "backgroundColor": "#07090E"
     },
     "web": {
       "favicon": "./assets/favicon.png"

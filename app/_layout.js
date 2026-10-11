@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Stack } from 'expo-router';
+export { ErrorBoundary } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { View, StyleSheet } from 'react-native';
 import { useFonts, PlusJakartaSans_700Bold, PlusJakartaSans_600SemiBold } from '@expo-google-fonts/plus-jakarta-sans';
