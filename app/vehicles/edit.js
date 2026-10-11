@@ -28,6 +28,7 @@ export default function EditVehicleModal() {
   const [taxDueDate, setTaxDueDate] = useState('');
   const [stnkExpiryDate, setStnkExpiryDate] = useState('');
   const [loading, setLoading] = useState(true);
+  const [initialData, setInitialData] = useState(null);
 
   useEffect(() => {
     if (!vehicleId) {
@@ -44,12 +45,27 @@ export default function EditVehicleModal() {
         return;
       }
 
+      const vehOdo = veh.odometer_km ? veh.odometer_km.toString() : '0';
+      const vehPlate = veh.plate || '';
+      const vehTax = veh.tax_due_date || '';
+      const vehStnk = veh.stnk_expiry_date || '';
+
       setType(veh.type);
       setName(veh.name);
-      setPlate(veh.plate || '');
-      setOdometerKm(veh.odometer_km ? veh.odometer_km.toString() : '0');
-      setTaxDueDate(veh.tax_due_date || '');
-      setStnkExpiryDate(veh.stnk_expiry_date || '');
+      setPlate(vehPlate);
+      setOdometerKm(vehOdo);
+      setTaxDueDate(vehTax);
+      setStnkExpiryDate(vehStnk);
+
+      setInitialData({
+        type: veh.type,
+        name: veh.name,
+        plate: vehPlate,
+        odometerKm: vehOdo,
+        taxDueDate: vehTax,
+        stnkExpiryDate: vehStnk,
+      });
+
       setLoading(false);
     } catch (e) {
       console.error('Error fetching vehicle for edit:', e);
@@ -105,6 +121,37 @@ export default function EditVehicleModal() {
     );
   };
 
+  const isDirty = () => {
+    if (!initialData) return false;
+    return (
+      type !== initialData.type ||
+      name.trim() !== initialData.name.trim() ||
+      plate.trim() !== initialData.plate.trim() ||
+      odometerKm.trim() !== initialData.odometerKm.trim() ||
+      taxDueDate.trim() !== initialData.taxDueDate.trim() ||
+      stnkExpiryDate.trim() !== initialData.stnkExpiryDate.trim()
+    );
+  };
+
+  const handleClose = () => {
+    if (isDirty()) {
+      Alert.alert(
+        'Buang Perubahan?',
+        'Ada perubahan data kendaraan yang belum disimpan. Tetap ingin keluar?',
+        [
+          { text: 'Tetap di Sini', style: 'cancel' },
+          {
+            text: 'Buang & Keluar',
+            style: 'destructive',
+            onPress: () => router.back(),
+          },
+        ]
+      );
+    } else {
+      router.back();
+    }
+  };
+
   if (loading) {
     return (
       <SafeAreaView style={styles.safeArea}>
@@ -125,7 +172,7 @@ export default function EditVehicleModal() {
         <View style={styles.header}>
           <TouchableOpacity
             style={styles.closeBtn}
-            onPress={() => router.back()}
+            onPress={handleClose}
             activeOpacity={0.7}
           >
             <MaterialIcons name="close" size={24} color={COLORS.textMuted} />

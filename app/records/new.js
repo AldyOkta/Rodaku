@@ -102,6 +102,36 @@ export default function NewRecordModal() {
     }
   };
 
+  const isDirty = () => {
+    const odoInitial = vehicle?.odometer_km ? vehicle.odometer_km.toString() : '';
+    return (
+      serviceType !== 'oli' ||
+      odometerKm !== odoInitial ||
+      cost !== '' ||
+      liters !== '' ||
+      notes !== ''
+    );
+  };
+
+  const handleClose = () => {
+    if (isDirty()) {
+      Alert.alert(
+        'Buang Perubahan?',
+        'Ada data catatan yang belum disimpan. Tetap ingin keluar?',
+        [
+          { text: 'Tetap di Sini', style: 'cancel' },
+          {
+            text: 'Buang & Keluar',
+            style: 'destructive',
+            onPress: () => router.back(),
+          },
+        ]
+      );
+    } else {
+      router.back();
+    }
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <KeyboardAvoidingView
@@ -112,7 +142,7 @@ export default function NewRecordModal() {
         <View style={styles.header}>
           <TouchableOpacity
             style={styles.closeBtn}
-            onPress={() => router.back()}
+            onPress={handleClose}
             activeOpacity={0.7}
           >
             <MaterialIcons name="close" size={24} color={COLORS.textMuted} />

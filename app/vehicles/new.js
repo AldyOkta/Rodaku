@@ -56,6 +56,36 @@ export default function NewVehicleModal() {
     }
   };
 
+  const isDirty = () => {
+    return (
+      type !== 'motor' ||
+      name.trim() !== '' ||
+      plate.trim() !== '' ||
+      odometerKm.trim() !== '' ||
+      taxDueDate.trim() !== '' ||
+      stnkExpiryDate.trim() !== ''
+    );
+  };
+
+  const handleClose = () => {
+    if (isDirty()) {
+      Alert.alert(
+        'Buang Perubahan?',
+        'Ada data kendaraan yang belum disimpan. Tetap ingin keluar?',
+        [
+          { text: 'Tetap di Sini', style: 'cancel' },
+          {
+            text: 'Buang & Keluar',
+            style: 'destructive',
+            onPress: () => router.back(),
+          },
+        ]
+      );
+    } else {
+      router.back();
+    }
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <KeyboardAvoidingView
@@ -65,7 +95,7 @@ export default function NewVehicleModal() {
         <View style={styles.header}>
           <TouchableOpacity
             style={styles.closeBtn}
-            onPress={() => router.back()}
+            onPress={handleClose}
             activeOpacity={0.7}
           >
             <MaterialIcons name="close" size={24} color={COLORS.textMuted} />

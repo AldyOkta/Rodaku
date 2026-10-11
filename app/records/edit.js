@@ -43,6 +43,8 @@ export default function EditRecordModal() {
   const [date, setDate] = useState('');
   const [loading, setLoading] = useState(true);
 
+  const [initialData, setInitialData] = useState(null);
+
   useEffect(() => {
     if (!recordId) {
       Alert.alert('Error', 'ID Catatan tidak ditemukan.');
@@ -58,12 +60,27 @@ export default function EditRecordModal() {
         return;
       }
 
+      const recOdo = rec.odometer_km ? rec.odometer_km.toString() : '';
+      const recCost = rec.cost ? rec.cost.toString() : '';
+      const recLiters = rec.liters ? rec.liters.toString() : '';
+      const recNotes = rec.notes || '';
+      const recDate = rec.date;
+
       setServiceType(rec.service_type);
-      setOdometerKm(rec.odometer_km ? rec.odometer_km.toString() : '');
-      setCost(rec.cost ? rec.cost.toString() : '');
-      setLiters(rec.liters ? rec.liters.toString() : '');
-      setNotes(rec.notes || '');
-      setDate(rec.date);
+      setOdometerKm(recOdo);
+      setCost(recCost);
+      setLiters(recLiters);
+      setNotes(recNotes);
+      setDate(recDate);
+
+      setInitialData({
+        serviceType: rec.service_type,
+        odometerKm: recOdo,
+        cost: recCost,
+        liters: recLiters,
+        notes: recNotes,
+        date: recDate,
+      });
 
       const veh = getVehicleById(rec.vehicle_id);
       setVehicle(veh);
@@ -123,6 +140,37 @@ export default function EditRecordModal() {
     );
   };
 
+  const isDirty = () => {
+    if (!initialData) return false;
+    return (
+      serviceType !== initialData.serviceType ||
+      odometerKm !== initialData.odometerKm ||
+      cost !== initialData.cost ||
+      liters !== initialData.liters ||
+      notes !== initialData.notes ||
+      date !== initialData.date
+    );
+  };
+
+  const handleClose = () => {
+    if (isDirty()) {
+      Alert.alert(
+        'Buang Perubahan?',
+        'Ada perubahan catatan yang belum disimpan. Tetap ingin keluar?',
+        [
+          { text: 'Tetap di Sini', style: 'cancel' },
+          {
+            text: 'Buang & Keluar',
+            style: 'destructive',
+            onPress: () => router.back(),
+          },
+        ]
+      );
+    } else {
+      router.back();
+    }
+  };
+
   if (loading) {
     return (
       <SafeAreaView style={styles.safeArea}>
@@ -143,7 +191,7 @@ export default function EditRecordModal() {
         <View style={styles.header}>
           <TouchableOpacity
             style={styles.closeBtn}
-            onPress={() => router.back()}
+            onPress={handleClose}
             activeOpacity={0.7}
           >
             <MaterialIcons name="close" size={24} color={COLORS.textMuted} />
