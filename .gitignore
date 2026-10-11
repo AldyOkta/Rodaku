@@ -1,20 +1,41 @@
+# Dependencies
 node_modules/
+.pnp
+.pnp.js
+
+# Expo & Builds
 .expo/
 dist/
-npm-debug.*
+web-build/
+
+# Native artifacts
+*.orig.*
 *.jks
 *.p8
 *.p12
 *.key
 *.mobileprovision
-*.orig.*
-web-build/
 
-# macOS
-.DS_Store
-
-# Temporary files
+# Debug logs
+npm-debug.*
+yarn-debug.*
+yarn-error.*
 *.log
+
+# Environment variables
+.env
+.env.local
+.env*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE & Editors
+.vscode/
+.idea/
+
+# Agents & Scratch
 scratch/
 .impeccable/
 .agent/
