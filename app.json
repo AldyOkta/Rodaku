@@ -20,8 +20,7 @@
       "package": "com.rodaku.app",
       "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/Rodaku.png",
-        "backgroundColor": "#12355B"
+        "foregroundImage": "./assets/Rodaku.png"
       },
       "permissions": [
         "RECEIVE_BOOT_COMPLETED",
