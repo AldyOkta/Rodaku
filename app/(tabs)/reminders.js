@@ -18,6 +18,7 @@ import HeaderBar from '../../src/components/HeaderBar';
 import ServiceBadge from '../../src/components/ServiceBadge';
 import { getActiveVehicle, getVehicleReminders, updateReminderRule } from '../../src/db/database';
 import { formatKm, formatDate, getDocumentStatus } from '../../src/utils/formatters';
+import { checkAndTriggerReminderNotifications, requestNotificationPermissions } from '../../src/services/notifications';
 
 export default function RemindersScreen() {
   const router = useRouter();
@@ -130,17 +131,30 @@ export default function RemindersScreen() {
         }
       >
         {/* Local Notification Status Banner */}
-        <View style={styles.statusBanner}>
+        <TouchableOpacity
+          style={styles.statusBanner}
+          activeOpacity={0.8}
+          onPress={async () => {
+            await checkAndTriggerReminderNotifications();
+            Alert.alert(
+              'Notifikasi Dicek',
+              'Sistem telah memeriksa seluruh aturan servis & pajak. Jika ada yang mendekati atau melewati jatuh tempo, banner notifikasi akan muncul di HP Anda.'
+            );
+          }}
+        >
           <View style={styles.bannerIconWrapper}>
-            <MaterialIcons name="notifications-active" size={20} color={COLORS.primary} />
+            <MaterialIcons name="notifications-active" size={20} color={COLORS.secondary} />
           </View>
           <View style={styles.bannerTextContainer}>
-            <Text style={styles.bannerTitle}>Pengingat Lokal Otomatis</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Text style={styles.bannerTitle}>Pengingat Lokal Otomatis</Text>
+              <Text style={{ fontSize: 10, color: COLORS.secondary, fontFamily: FONTS.headingBold }}>UJI SEKARANG</Text>
+            </View>
             <Text style={styles.bannerSub}>
-              Notifikasi aktif pada ambang 500 km atau 7 hari sebelum jatuh tempo.
+              Notifikasi aktif pada ambang 500 km atau 7 hari sebelum jatuh tempo. Ketuk untuk memicu pengecekan.
             </Text>
           </View>
-        </View>
+        </TouchableOpacity>
 
         {/* Section: Dokumen & Pajak Kendaraan */}
         {vehicle && (

@@ -11,6 +11,8 @@ import ExplodedWheelSplash from '../src/components/ExplodedWheelSplash';
 
 import * as Updates from 'expo-updates';
 
+import { checkAndTriggerReminderNotifications } from '../src/services/notifications';
+
 export default function RootLayout() {
   const [splashFinished, setSplashFinished] = useState(false);
   const [fontsLoaded] = useFonts({
@@ -26,8 +28,9 @@ export default function RootLayout() {
     // Initialize SQLite database and seed on startup
     try {
       getDatabase();
+      checkAndTriggerReminderNotifications();
     } catch (e) {
-      console.error('Failed to initialize database:', e);
+      console.error('Failed to initialize database or notifications:', e);
     }
 
     // Check for OTA Updates in standalone/production build
