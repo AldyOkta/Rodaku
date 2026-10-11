@@ -15,6 +15,7 @@ import { useRouter } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
 import { COLORS, SPACING, RADIUS, FONTS, SERVICE_THEMES } from '../../src/constants/theme';
 import { getActiveVehicle, insertRecord } from '../../src/db/database';
+import { formatNumber } from '../../src/utils/formatters';
 
 const SERVICE_TYPE_KEYS = [
   'oli',
@@ -42,7 +43,7 @@ export default function NewRecordModal() {
       const active = getActiveVehicle();
       setVehicle(active);
       if (active) {
-        setOdometerKm(active.odometer_km ? active.odometer_km.toString() : '');
+        setOdometerKm(active.odometer_km ? formatNumber(active.odometer_km) : '');
       }
     } catch (e) {
       console.error('Error fetching active vehicle:', e);
@@ -209,10 +210,10 @@ export default function NewRecordModal() {
               <TextInput
                 style={styles.textInput}
                 keyboardType="numeric"
-                placeholder="Contoh: 16450"
+                placeholder="Contoh: 16.450"
                 placeholderTextColor={COLORS.textSubtle}
                 value={odometerKm}
-                onChangeText={setOdometerKm}
+                onChangeText={(text) => setOdometerKm(formatNumber(text))}
               />
               <Text style={styles.inputSuffix}>KM</Text>
             </View>
@@ -229,7 +230,7 @@ export default function NewRecordModal() {
                 placeholder="0"
                 placeholderTextColor={COLORS.textSubtle}
                 value={cost}
-                onChangeText={setCost}
+                onChangeText={(text) => setCost(formatNumber(text))}
               />
             </View>
           </View>

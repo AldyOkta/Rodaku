@@ -15,6 +15,7 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
 import { COLORS, SPACING, RADIUS, FONTS } from '../../src/constants/theme';
 import { getVehicleById, updateVehicle, deleteVehicle } from '../../src/db/database';
+import { formatNumber } from '../../src/utils/formatters';
 
 export default function EditVehicleModal() {
   const router = useRouter();
@@ -45,7 +46,7 @@ export default function EditVehicleModal() {
         return;
       }
 
-      const vehOdo = veh.odometer_km ? veh.odometer_km.toString() : '0';
+      const vehOdo = veh.odometer_km ? formatNumber(veh.odometer_km) : '0';
       const vehPlate = veh.plate || '';
       const vehTax = veh.tax_due_date || '';
       const vehStnk = veh.stnk_expiry_date || '';
@@ -285,7 +286,7 @@ export default function EditVehicleModal() {
                 <TextInput
                   style={styles.input}
                   value={odometerKm}
-                  onChangeText={setOdometerKm}
+                  onChangeText={(text) => setOdometerKm(formatNumber(text))}
                   keyboardType="numeric"
                   placeholder="0"
                   placeholderTextColor={COLORS.textSubtle}

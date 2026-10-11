@@ -15,7 +15,7 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
 import { COLORS, SPACING, RADIUS, FONTS, SERVICE_THEMES } from '../../src/constants/theme';
 import { getRecordById, updateRecord, deleteRecord, getVehicleById } from '../../src/db/database';
-import { formatRupiah } from '../../src/utils/formatters';
+import { formatRupiah, formatNumber } from '../../src/utils/formatters';
 
 const SERVICE_TYPE_KEYS = [
   'oli',
@@ -60,8 +60,8 @@ export default function EditRecordModal() {
         return;
       }
 
-      const recOdo = rec.odometer_km ? rec.odometer_km.toString() : '';
-      const recCost = rec.cost ? rec.cost.toString() : '';
+      const recOdo = rec.odometer_km ? formatNumber(rec.odometer_km) : '';
+      const recCost = rec.cost ? formatNumber(rec.cost) : '';
       const recLiters = rec.liters ? rec.liters.toString() : '';
       const recNotes = rec.notes || '';
       const recDate = rec.date;
@@ -267,7 +267,7 @@ export default function EditRecordModal() {
                 <TextInput
                   style={styles.input}
                   value={odometerKm}
-                  onChangeText={setOdometerKm}
+                  onChangeText={(text) => setOdometerKm(formatNumber(text))}
                   keyboardType="numeric"
                   placeholder="0"
                   placeholderTextColor={COLORS.textSubtle}
@@ -284,7 +284,7 @@ export default function EditRecordModal() {
                 <TextInput
                   style={styles.input}
                   value={cost}
-                  onChangeText={setCost}
+                  onChangeText={(text) => setCost(formatNumber(text))}
                   keyboardType="numeric"
                   placeholder="0"
                   placeholderTextColor={COLORS.textSubtle}

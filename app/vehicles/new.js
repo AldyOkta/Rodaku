@@ -15,6 +15,7 @@ import { useRouter } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
 import { COLORS, SPACING, RADIUS, FONTS } from '../../src/constants/theme';
 import { insertVehicle, getDatabase } from '../../src/db/database';
+import { formatNumber } from '../../src/utils/formatters';
 
 export default function NewVehicleModal() {
   const router = useRouter();
@@ -197,7 +198,7 @@ export default function NewVehicleModal() {
                 placeholder="0"
                 placeholderTextColor={COLORS.textSubtle}
                 value={odometerKm}
-                onChangeText={setOdometerKm}
+                onChangeText={(text) => setOdometerKm(formatNumber(text))}
               />
               <Text style={styles.inputSuffix}>KM</Text>
             </View>

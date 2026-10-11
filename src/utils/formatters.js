@@ -4,6 +4,13 @@ export function formatRupiah(amount) {
   return 'Rp ' + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
+export function formatNumber(val) {
+  if (val == null || val === '') return '';
+  const clean = val.toString().replace(/\D/g, '');
+  if (!clean) return '';
+  return clean.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
 export function formatKm(km) {
   if (km == null || isNaN(km)) return '0 km';
   const val = Math.round(Number(km));
