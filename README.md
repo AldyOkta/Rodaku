@@ -1,4 +1,4 @@
-# 🏍️ Rodaku — Logbook Servis & Perawatan Presisi
+# Rodaku — Logbook Servis & Perawatan Presisi
 
 [![Expo SDK](https://img.shields.io/badge/Expo-SDK%2057-000020.svg?style=flat&logo=expo)](https://expo.dev)
 [![React Native](https://img.shields.io/badge/React%20Native-0.86-61DAFB.svg?style=flat&logo=react)](https://reactnative.dev)
@@ -10,7 +10,7 @@
 
 ---
 
-## 🌟 Fitur Utama
+## Fitur Utama
 
 ### 1. 🏎️ Garasi Multi-Kendaraan & Odometer Tracking
 * Kelola motor dan mobil pribadi dalam satu aplikasi.
@@ -45,7 +45,7 @@
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Lapisan | Teknologi |
 | :--- | :--- |
@@ -58,7 +58,7 @@
 
 ---
 
-## 📁 Struktur Direktori
+## Struktur Direktori
 
 ```text
 Rodaku/
@@ -90,7 +90,7 @@ Rodaku/
 
 ---
 
-## 🚀 Panduan Menjalankan Proyek (Development)
+## Panduan Menjalankan Proyek (Development)
 
 ### Prasyarat
 * [Node.js](https://nodejs.org/) (versi 18 ke atas disarankan).
@@ -120,7 +120,7 @@ npx expo start
 
 ---
 
-## 📦 Panduan Build Menjadi APK Mandiri (Production)
+## Panduan Build Menjadi APK Mandiri (Production)
 
 Proyek ini telah dikonfigurasi dengan **EAS Build** ([`eas.json`](eas.json)) untuk menghasilkan file `.apk` mandiri tanpa ketergantungan pada Expo Go.
 
