@@ -20,7 +20,7 @@
       "package": "com.rodaku.app",
       "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/android-icon-foreground.png",
+        "foregroundImage": "./assets/Rodaku.png",
         "backgroundColor": "#12355B"
       },
       "permissions": [
@@ -45,6 +45,12 @@
         {
           "icon": "./assets/notification-icon.png",
           "color": "#111827"
+        }
+      ],
+      [
+        "expo-dev-client",
+        {
+          "launchMode": "most-recent"
         }
       ],
       "expo-asset"
