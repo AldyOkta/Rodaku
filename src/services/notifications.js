@@ -4,35 +4,44 @@ import { getDatabase, getActiveVehicle, getVehicleReminders } from '../db/databa
 import { getDocumentStatus } from '../utils/formatters';
 
 // Set default notification presentation options (shows banner, plays sound, badges app)
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: true,
-  }),
-});
+try {
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: true,
+    }),
+  });
+} catch (e) {
+  // Gracefully handle if notifications API is restricted in certain environments
+}
 
 /**
  * Request notification permissions from Android & iOS.
  */
 export async function requestNotificationPermissions() {
-  if (Platform.OS === 'android') {
-    await Notifications.setNotificationChannelAsync('rodaku_reminders', {
-      name: 'Pengingat Servis Rodaku',
-      importance: Notifications.AndroidImportance.HIGH,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: '#F26B1D',
-      sound: 'default',
-    });
-  }
+  try {
+    if (Platform.OS === 'android') {
+      await Notifications.setNotificationChannelAsync('rodaku_reminders', {
+        name: 'Pengingat Servis Rodaku',
+        importance: Notifications.AndroidImportance.HIGH,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#F26B1D',
+        sound: 'default',
+      });
+    }
 
-  const { status: existingStatus } = await Notifications.getPermissionsAsync();
-  let finalStatus = existingStatus;
-  if (existingStatus !== 'granted') {
-    const { status } = await Notifications.requestPermissionsAsync();
-    finalStatus = status;
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    return finalStatus === 'granted';
+  } catch (e) {
+    console.warn('Notification permission check skipped:', e.message);
+    return false;
   }
-  return finalStatus === 'granted';
 }
 
 /**
