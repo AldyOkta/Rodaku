@@ -9,6 +9,7 @@ import {
   Modal,
   TextInput,
   Alert,
+  Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useFocusEffect } from 'expo-router';
@@ -143,7 +144,11 @@ export default function RemindersScreen() {
           }}
         >
           <View style={styles.bannerIconWrapper}>
-            <MaterialIcons name="notifications-active" size={20} color={COLORS.secondary} />
+            <Image
+              source={require('../../assets/Rodaku.png')}
+              style={styles.bannerLogoImage}
+              resizeMode="contain"
+            />
           </View>
           <View style={styles.bannerTextContainer}>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -388,12 +393,19 @@ const styles = StyleSheet.create({
     borderColor: COLORS.border,
   },
   bannerIconWrapper: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
-    backgroundColor: '#FEF3C7',
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: COLORS.surfaceRaised,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    overflow: 'hidden',
+  },
+  bannerLogoImage: {
+    width: 32,
+    height: 32,
   },
   bannerTextContainer: {
     flex: 1,

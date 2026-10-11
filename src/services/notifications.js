@@ -1,5 +1,6 @@
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
+import { Asset } from 'expo-asset';
 import { getDatabase, getActiveVehicle, getVehicleReminders } from '../db/database';
 import { getDocumentStatus } from '../utils/formatters';
 
@@ -7,7 +8,8 @@ import { getDocumentStatus } from '../utils/formatters';
 try {
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
-      shouldShowAlert: true,
+      shouldShowBanner: true,
+      shouldShowList: true,
       shouldPlaySound: true,
       shouldSetBadge: true,
     }),
@@ -26,8 +28,7 @@ export async function requestNotificationPermissions() {
         name: 'Pengingat Servis Rodaku',
         importance: Notifications.AndroidImportance.HIGH,
         vibrationPattern: [0, 250, 250, 250],
-        lightColor: '#F26B1D',
-        sound: 'default',
+        lightColor: '#12355B',
       });
     }
 
@@ -55,6 +56,21 @@ export async function checkAndTriggerReminderNotifications() {
     const vehicle = getActiveVehicle();
     if (!vehicle) return;
 
+    // Resolve Rodaku.png local URI to attach directly into banner
+    let wheelImageUri = null;
+    try {
+      const asset = Asset.fromModule(require('../../assets/Rodaku.png'));
+      await asset.downloadAsync();
+      wheelImageUri = asset.localUri || asset.uri;
+    } catch (e) {
+      // Fallback silently if asset cannot resolve
+    }
+
+    // Attachments configuration for rich banner notification
+    const attachments = wheelImageUri
+      ? [{ identifier: 'rodaku-wheel', url: wheelImageUri }]
+      : [];
+
     // 1. Check Document/Tax Dues
     if (vehicle.tax_due_date) {
       const pkbStatus = getDocumentStatus(vehicle.tax_due_date);
@@ -66,6 +82,7 @@ export async function checkAndTriggerReminderNotifications() {
               ? `Pajak tahunan PKB sudah jatuh tempo! Segera lakukan pembayaran di Samsat.`
               : `Pajak tahunan PKB jatuh tempo dalam ${pkbStatus.daysDiff} hari lagi. Siapkan dokumen Anda.`,
             data: { screen: 'reminders', type: 'pajak' },
+            attachments,
             sound: true,
           },
           trigger: null, // Send immediately
@@ -83,6 +100,7 @@ export async function checkAndTriggerReminderNotifications() {
               ? `STNK 5 tahunan sudah habis masa berlakunya! Perpanjang STNK & ganti plat nomor.`
               : `STNK 5 tahunan akan habis dalam ${stnkStatus.daysDiff} hari lagi.`,
             data: { screen: 'reminders', type: 'stnk' },
+            attachments,
             sound: true,
           },
           trigger: null,
@@ -107,6 +125,7 @@ export async function checkAndTriggerReminderNotifications() {
             title: `Waktunya Servis: ${serviceName}!`,
             body: `${vehicle.name} sudah mencapai ${currentKm.toLocaleString('id-ID')} km (melewati target ${dueKm.toLocaleString('id-ID')} km). Jadwalkan servis sekarang.`,
             data: { screen: 'reminders', ruleId: r.id },
+            attachments,
             sound: true,
           },
           trigger: null,
@@ -118,6 +137,7 @@ export async function checkAndTriggerReminderNotifications() {
             title: `Pengingat Servis ${serviceName}`,
             body: `${vehicle.name} tersisa ~${remainingKm.toLocaleString('id-ID')} km lagi sebelum jadwal servis ${serviceName}.`,
             data: { screen: 'reminders', ruleId: r.id },
+            attachments,
             sound: true,
           },
           trigger: null,

@@ -43,10 +43,11 @@
       [
         "expo-notifications",
         {
-          "icon": "./assets/icon.png",
-          "color": "#F59E0B"
+          "icon": "./assets/notification-icon.png",
+          "color": "#111827"
         }
-      ]
+      ],
+      "expo-asset"
     ],
     "runtimeVersion": {
       "policy": "appVersion"
