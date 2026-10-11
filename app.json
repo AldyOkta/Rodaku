@@ -1,0 +1,62 @@
+{
+  "expo": {
+    "name": "Rodaku",
+    "slug": "rodaku",
+    "scheme": "rodaku",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#07090E"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.rodaku.app"
+    },
+    "android": {
+      "package": "com.rodaku.app",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundColor": "#12355B"
+      },
+      "navigationBar": {
+        "visible": "sticky-immersive",
+        "backgroundColor": "#07090E",
+        "barStyle": "light-content"
+      },
+      "permissions": [
+        "RECEIVE_BOOT_COMPLETED",
+        "VIBRATE",
+        "SCHEDULE_EXACT_ALARM"
+      ]
+    },
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#07090E",
+      "translucent": true
+    },
+    "androidNavigationBar": {
+      "visible": "sticky-immersive",
+      "barStyle": "light-content",
+      "backgroundColor": "#07090E"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-sqlite",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#F59E0B"
+        }
+      ]
+    ]
+  }
+}
